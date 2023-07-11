@@ -8,9 +8,10 @@ import * as Keychain from 'react-native-keychain';
 import store from "../redux/store";
 import {setAuthorization, setIsAuthorized} from "../redux/reducers/logout";
 import {useSelector} from "react-redux";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 function RootNavigator() {
     // @ts-ignore
@@ -35,17 +36,23 @@ function RootNavigator() {
         }
     };
 
-    return (
-        <NavigationContainer>
+  return (
+    <NavigationContainer>
             <Stack.Navigator>
-                {isAuthorized ? (
-                    <>
-                        <Stack.Screen name="PostsScreen" component={PostScreen} />
-                        <Stack.Screen name="PostDetailedScreen" component={PostDetailedScreen}/>
-                    </>
-                ) : (
-                    <Stack.Screen name="AuthScreen" component={LoginScreen}/>
-                )}
+
+
+                <Stack.Screen name="AuthScreen" component={LoginScreen}/>
+                <Stack.Screen name="PostScreen" component={PostScreen} />
+                <Stack.Screen name="PostDetailedScreen" component={PostDetailedScreen}/>
+
+                {/*{isAuthorized ? (*/}
+                {/*    <>*/}
+                {/*        <Stack.Screen name="PostScreen" component={PostScreen} />*/}
+                {/*        <Stack.Screen name="PostDetailedScreen" component={PostDetailedScreen}/>*/}
+                {/*    </>*/}
+                {/*) : (*/}
+                {/*    <Stack.Screen name="AuthScreen" component={LoginScreen}/>*/}
+                {/*)}*/}
             </Stack.Navigator>
         </NavigationContainer>
     );

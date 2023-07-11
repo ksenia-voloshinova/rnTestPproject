@@ -1,4 +1,4 @@
-import {api} from "./api";
+import {api} from './api';
 import {createAsyncThunk} from "@reduxjs/toolkit";
 
 export const fetchUserData = createAsyncThunk('logout/logoutSlice', async (username, password) => {

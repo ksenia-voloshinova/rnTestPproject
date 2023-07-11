@@ -13,7 +13,7 @@ const HomeStackNavigator = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="AuthScreen" component={LoginScreen}/>
-            <Stack.Screen name="PostsScreen" component={PostScreen} />
+            <Stack.Screen name="PostScreen" component={PostScreen} />
             <Stack.Screen name="PostDetailedScreen" component={PostDetailedScreen}/>
         </Stack.Navigator>
         );

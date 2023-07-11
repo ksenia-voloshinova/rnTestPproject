@@ -5,7 +5,7 @@ import {
     ImageBackground,
     Text,
 } from 'react-native'
-import {PostProps} from "../types";
+import {PostProps} from '../types';
 
 export const Post: React.FC<PostProps> = ({post}) => {
     return (

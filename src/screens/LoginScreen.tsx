@@ -37,13 +37,14 @@ export const LoginScreen: React.FC = () => {
             );
         }else { // @ts-ignore
             if(userData.user){
+              console.log(userData);
                         const isLogout:boolean = true;
                         // @ts-ignore
                 store.dispatch(setAuthorization(userData.user));
                         // @ts-ignore
                 await Keychain.setGenericPassword(username, password, isLogout );
                         // @ts-ignore
-                        navigation.navigate('PostsScreen');
+                        navigation.navigate('PostScreen');
                     }
         }
 
