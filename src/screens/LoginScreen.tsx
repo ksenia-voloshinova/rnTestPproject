@@ -1,62 +1,68 @@
-import React, { useState } from 'react';
-import {View, TextInput, Button, StyleSheet, Alert} from 'react-native';
+import React, { useEffect, useState } from "react";
+import {View, TextInput, Button, StyleSheet, Alert, } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
-import store from "../redux/store";
-import {api} from "../api/api";
-import {setAuthorization} from "../redux/reducers/logout";
-import * as Keychain from 'react-native-keychain';
-
-
+import { setUserDetails } from "../redux/reducers/logout";
+import { useDispatch } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { fetchUserData } from "../api/fetch";
+import LoginService from "../services/loginService";
+import { GeneralData, StorageData } from "../types";
+import { retrieveCustomData } from "../services/retrieveCustomData";
 
 export const LoginScreen: React.FC = () => {
     const navigation = useNavigation();
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    const [username, setUsername] = useState('');
+    const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
 
+  useEffect(() => {
+    const fetchData = async () => {
+        const storageData = await retrieveCustomData() as StorageData;
 
-    const handleLogin = async () => {
-        const response = await api.post('/auth/sign_in', {email: username, password });
-        const userData = response.data;
+        dispatch(setUserDetails(storageData));
 
-        // @ts-ignore
-        if(userData.success == false){
-            Alert.alert(
-                'Неудалось авторизоваться',
-                'Проверьте правильность введенных данных',
-                [
-                    {
-                        text: 'Cancel',
-                        onPress: () => {setUsername(""), setPassword("")},
-
-                    },
-                ],
-
-            );
-        }else { // @ts-ignore
-            if(userData.user){
-              console.log(userData);
-                        const isLogout:boolean = true;
-                        // @ts-ignore
-                store.dispatch(setAuthorization(userData.user));
-                        // @ts-ignore
-                await Keychain.setGenericPassword(username, password, isLogout );
-                        // @ts-ignore
-                        navigation.navigate('PostScreen');
-                    }
+      if(storageData.isLogin === 'true') {
+          // @ts-ignore
+          navigation.navigate('NewsScreen');
         }
+    };
+    fetchData();
+  }, []);
+
+  const handleLogin = async () => {
+    console.log('we are handling login');
+      const generalData = await fetchUserData(login, password) as GeneralData;
+      const storageData = await LoginService(generalData) as StorageData;
+      if(storageData.isLogin) {
+        dispatch(setUserDetails(storageData))
+        // @ts-ignore
+        navigation.navigate('NewsScreen');
+      }else {
+        Alert.alert(
+          'Не удалось авторизоваться',
+          'Проверьте правильность введенных данных',
+          [
+            {
+              text: 'OK'
+            },
+          ],
+
+        );
+      }
 
     };
+
+
 
     return (
         <View style={styles.container}>
             <TextInput
                 style={styles.input}
                 placeholder="Логин"
-                value={username}
-                onChangeText={setUsername}
+                value={login}
+                onChangeText={setLogin}
             />
             <TextInput
                 style={styles.input}
