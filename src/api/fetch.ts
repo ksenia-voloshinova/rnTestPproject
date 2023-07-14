@@ -11,5 +11,8 @@ export const fetchPosts = async ( accessToken:string, uid:string, client:string)
         'client': client,
     };
 
-    return await api.get('/news', null,{ headers });
+    return await api.get('/news', {},{ headers });
 };
+export const fetchPostId = async (newsid:string): Promise<any> => {
+    return await api.get(`/news/${newsid}`);
+}

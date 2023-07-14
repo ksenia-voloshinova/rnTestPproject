@@ -1,17 +1,16 @@
 import {PostList} from "../components/PostList";
-import { DATA } from '../data'
 import React, { useEffect } from "react";
 import {useNavigation} from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header";
 import { fetchPosts } from "../api/fetch";
 import { NewsList } from "../components/NewsList";
-import { NewsData, NewsListProps, NewsProps } from "../types";
 import { setNews } from "../redux/reducers/news";
+import { RootState } from "../redux/reducers";
 
 
 export const NewsScreen: React.FC = () => {
-    const userData = useSelector(state => state.logout.userDetails);
+    const userData = useSelector((state: RootState) => state.logout.userDetails);
     const dispatch = useDispatch();
 
     const navigation = useNavigation();
@@ -19,6 +18,7 @@ export const NewsScreen: React.FC = () => {
     useEffect(() => {
         navigation.setOptions({
             headerTitle: () => <Header userData={userData} />,
+            headerBackVisible: false
         });
 
         const getPosts = async () => {

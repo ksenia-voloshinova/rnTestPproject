@@ -3,14 +3,13 @@ import {View, TextInput, Button, StyleSheet, Alert, } from 'react-native';
 import {useNavigation} from "@react-navigation/native";
 import { setUserDetails } from "../redux/reducers/logout";
 import { useDispatch } from "react-redux";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { fetchUserData } from "../api/fetch";
 import LoginService from "../services/loginService";
-import { GeneralData, StorageData } from "../types";
+import { GeneralData, NewsScreenNavigationType, StorageData } from "../types";
 import { retrieveCustomData } from "../services/retrieveCustomData";
 
 export const LoginScreen: React.FC = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<NewsScreenNavigationType>();
     const dispatch = useDispatch();
 
     const [login, setLogin] = useState('');
@@ -24,21 +23,18 @@ export const LoginScreen: React.FC = () => {
         dispatch(setUserDetails(storageData));
 
       if(storageData.isLogin === 'true') {
-          // @ts-ignore
-          navigation.navigate('NewsScreen');
+          navigation.navigate('NewsScreen', {});
         }
     };
     fetchData();
   }, []);
 
   const handleLogin = async () => {
-    console.log('we are handling login');
       const generalData = await fetchUserData(login, password) as GeneralData;
       const storageData = await LoginService(generalData) as StorageData;
       if(storageData.isLogin) {
         dispatch(setUserDetails(storageData))
-        // @ts-ignore
-        navigation.navigate('NewsScreen');
+        navigation.navigate('NewsScreen', {});
       }else {
         Alert.alert(
           'Не удалось авторизоваться',

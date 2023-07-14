@@ -1,6 +1,4 @@
 import React from 'react';
-import {PostScreen} from "../screens/PostScreen";
-import {PostDetailedScreen} from "../screens/PostDetailedScreen";
 import {LoginScreen} from "../screens/LoginScreen";
 import {NewsScreen} from "../screens/NewsScreen";
 import {NavigationContainer} from "@react-navigation/native";

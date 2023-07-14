@@ -16,27 +16,25 @@ export type PostProps = {
 };
 
 export type UserState = {
-    userDetails: StorageData | null;
-};
-export type NewsState = {
-    news: StorageData | null;
+    userDetails: StorageData ;
 };
 
 export type GeneralData = {
-    data: UserData;
+    data: UserType;
     headers: HeaderData;
 }
 
-export type UserData = {
-    user: UserType;
+export type UserDataTypes = {
+    userData: StorageData;
 }
 
 export type UserType = {
-    id: number,
-    username: string,
-    avatar_url: string,
-    avatar_cropped_big_url: string,
-    email: string,
+    user: {
+        username: string,
+        avatar_cropped_big_url: string,
+        email: string,
+    };
+
 }
 
 type HeaderData = {
@@ -46,12 +44,12 @@ type HeaderData = {
 }
 
 export type StorageData =  {
-    accessToken: string | null;
-    client: string | null;
-    uid: string | null;
+    accessToken: string ;
+    client: string ;
+    uid: string ;
     isLogin: string | null;
     username: string | null;
-    avatar: string | null;
+    avatar: string | undefined;
     login: string | null;
     password: string | null;
 }
@@ -80,7 +78,12 @@ export type NewsData = {
 
 export type RootStackParamList = {
     AuthScreen: {};
-    // Здесь можно добавить другие экраны
+    NewsScreen: {};
+    NewsDetailedScreen: {};
 };
 
 export type AuthScreenNavigationType = NativeStackNavigationProp<RootStackParamList, 'AuthScreen'>;
+
+export type NewsScreenNavigationType = NativeStackNavigationProp<RootStackParamList, 'NewsScreen'>
+
+export type NewsDetailedScreenNavigationType = NativeStackNavigationProp<RootStackParamList, 'NewsDetailedScreen'>
