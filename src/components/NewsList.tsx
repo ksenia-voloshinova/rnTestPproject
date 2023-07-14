@@ -1,27 +1,18 @@
 import React from 'react'
-import {View, StyleSheet, FlatList, TouchableOpacity} from 'react-native'
-import { Post } from './Post'
-import {
-  NewsData,
-  NewsDetailedScreenNavigationType,
-  NewsListProps,
-  NewsScreenNavigationType,
-  PostData,
-  PostListProps
-} from "../types";
+import { View, StyleSheet, FlatList, TouchableOpacity, Text } from "react-native";
+import { NewsData, NewsDetailedScreenNavigationType, NewsProps } from "../types";
 import {useNavigation} from "@react-navigation/native";
 import { News } from "./News";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/reducers";
 import { fetchPostId } from "../api/fetch";
-import { setNews, setNewsItem } from "../redux/reducers/news";
+import {  setNewsItem } from "../redux/reducers/news";
+import { RootState } from "../redux/reducers";
 
 export const NewsList: React.FC = () => {
   const navigation = useNavigation<NewsDetailedScreenNavigationType>();
   const dispatch = useDispatch();
-  const newsData: NewsData[] =  useSelector((state: RootState) => state.news.news);
-
-    const openPostHandler = async (news: NewsData) => {
+  const filteredPosts = useSelector((state: RootState) => state.news.filteredNews);
+   const openPostHandler = async (news: NewsData) => {
       const postData = await fetchPostId(news.id);
       dispatch(setNewsItem(postData.data.news));
       navigation.navigate('NewsDetailedScreen', {});
@@ -30,8 +21,8 @@ export const NewsList: React.FC = () => {
     return (
         <View style={styles.wrapper}>
             <FlatList
-                data={newsData}
-                keyExtractor={newsItem => newsItem.id.toString()}
+                data={filteredPosts}
+                keyExtractor={postItem => postItem.id.toString()}
                 renderItem={({ item }) =>
                     <TouchableOpacity activeOpacity={0.7} onPress={() => openPostHandler(item)}>
                         <News news={item} />

@@ -1,19 +1,19 @@
-import {PostList} from "../components/PostList";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {useNavigation} from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import Header from "../components/Header";
 import { fetchPosts } from "../api/fetch";
 import { NewsList } from "../components/NewsList";
-import { setNews } from "../redux/reducers/news";
+import { setFilteredNews, setNews } from "../redux/reducers/news";
 import { RootState } from "../redux/reducers";
+import { SearchBar } from "../components/SearchBar";
 
 
 export const NewsScreen: React.FC = () => {
-    const userData = useSelector((state: RootState) => state.logout.userDetails);
     const dispatch = useDispatch();
-
     const navigation = useNavigation();
+    const userData = useSelector((state: RootState) => state.logout.userDetails);
+    const posts = useSelector((state: RootState) => state.news.news);
 
     useEffect(() => {
         navigation.setOptions({
@@ -24,10 +24,27 @@ export const NewsScreen: React.FC = () => {
         const getPosts = async () => {
             const posts = await fetchPosts(userData.accessToken, userData.uid, userData.client);
             dispatch(setNews(posts.data.news));
+            dispatch(setFilteredNews(posts.data.news));
+
         };
         getPosts();
 
     }, [navigation, userData]);
 
-    return <NewsList />;
+    const [searchQuery, setSearchQuery] = useState("");
+
+    const handleSearch = (query: string) => {
+        setSearchQuery(query);
+        const filtered = posts.filter((post) =>
+          post.title.toLowerCase().includes(query.toLowerCase())
+        );
+        dispatch(setFilteredNews(filtered));
+    };
+
+    return (
+      <>
+          <SearchBar onSearch={handleSearch} />
+          <NewsList />
+      </>
+    )
 };

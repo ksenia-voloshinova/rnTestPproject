@@ -5,9 +5,9 @@ import {
     ImageBackground,
     Text,
 } from 'react-native'
-import { NewsProps } from "../types";
+import { NewProps } from "../types";
 
-export const News: React.FC<NewsProps> = ({news}) => {
+export const News: React.FC<NewProps> = ({news}) => {
     return (
             <View style={styles.post}>
                 <ImageBackground style={styles.image} source={{ uri: news.image_url }}>
@@ -20,7 +20,6 @@ export const News: React.FC<NewsProps> = ({news}) => {
             </View>
     )
 }
-
 const styles = StyleSheet.create({
     post: {
         marginBottom: 15,

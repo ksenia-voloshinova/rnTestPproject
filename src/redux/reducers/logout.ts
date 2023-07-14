@@ -5,7 +5,6 @@ const initialState: UserState = {
     userDetails: {} as unknown as StorageData,
 };
 
-
 const logoutSlice = createSlice({
     name: "logout",
     initialState,
@@ -15,7 +14,5 @@ const logoutSlice = createSlice({
         },
     },
 });
-
 export const { setUserDetails } = logoutSlice.actions;
-
 export default logoutSlice.reducer;

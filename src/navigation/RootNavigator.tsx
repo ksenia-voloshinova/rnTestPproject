@@ -6,9 +6,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NewsDetailedScreen } from "../screens/NewsDetailedScreen";
 
-
 const Stack = createNativeStackNavigator();
-
 function RootNavigator() {
 
   return (

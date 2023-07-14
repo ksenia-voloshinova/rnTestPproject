@@ -15,7 +15,6 @@ export const LoginScreen: React.FC = () => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
-
   useEffect(() => {
     const fetchData = async () => {
         const storageData = await retrieveCustomData() as StorageData;
@@ -28,7 +27,6 @@ export const LoginScreen: React.FC = () => {
     };
     fetchData();
   }, []);
-
   const handleLogin = async () => {
       const generalData = await fetchUserData(login, password) as GeneralData;
       const storageData = await LoginService(generalData) as StorageData;
@@ -49,8 +47,6 @@ export const LoginScreen: React.FC = () => {
       }
 
     };
-
-
 
     return (
         <View style={styles.container}>

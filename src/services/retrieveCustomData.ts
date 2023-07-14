@@ -22,6 +22,6 @@ export const retrieveCustomData = async () => {
       password
     }
   } catch (e) {
-    // error reading value
+    console.log(e)
   }
 };

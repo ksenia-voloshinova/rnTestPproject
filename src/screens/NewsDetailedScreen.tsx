@@ -4,8 +4,6 @@ import HTML from 'react-native-render-html';
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/reducers";
 import Header from "../components/Header";
-import { fetchPosts } from "../api/fetch";
-import { setNews } from "../redux/reducers/news";
 import { useNavigation } from "@react-navigation/native";
 
 export const NewsDetailedScreen: React.FC = () => {

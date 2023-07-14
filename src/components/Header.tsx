@@ -4,10 +4,7 @@ import { AuthScreenNavigationType, UserDataTypes } from "../types";
 import {useNavigation} from "@react-navigation/native";
 import LogoutService from "../services/logoutService";
 
-
-
 export const Header: React.FC <UserDataTypes> = ({ userData }) => {
-  console.log(userData);
   const navigation = useNavigation<AuthScreenNavigationType>();
   const handleLogout = async () => {
     await LogoutService();
@@ -23,12 +20,9 @@ export const Header: React.FC <UserDataTypes> = ({ userData }) => {
       />
       <Text style={styles.username}>{userData.username}</Text>
     </View>
-
     <Button title="Выйти" onPress={handleLogout} />
-
   </View>
 );}
-
 
 const styles = StyleSheet.create({
   container: {
@@ -51,9 +45,5 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 16,
   },
-
-
-
 });
-
 export default Header;

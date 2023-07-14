@@ -1,20 +1,5 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-export type PostListProps = {
-    data: PostData[];
-};
-
-export type PostData = {
-    id: string;
-    img: string;
-    booked: boolean;
-    text: string;
-};
-
-export type PostProps = {
-    post: PostData;
-};
-
 export type UserState = {
     userDetails: StorageData ;
 };
@@ -53,13 +38,16 @@ export type StorageData =  {
     login: string | null;
     password: string | null;
 }
+export type SearchBarProps = {
+    onSearch: (query: string) => void;
+}
 
-export type NewsListProps = {
-    data: NewsData[];
-};
+export type NewProps = {
+    news: NewsData;
+}
 
 export type NewsProps = {
-    news: NewsData;
+    news: NewsData[];
 }
 
 export type NewsData = {
