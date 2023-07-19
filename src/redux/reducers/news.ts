@@ -1,10 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { NewsData } from "../../types";
+import { NewsData, NewsState } from "../../types";
 
-const initialState = {
-    news: null as unknown as NewsData[],
-    filteredNews: null as unknown as NewsData[],
-    newsItem: null as unknown as NewsData
+const initialState: NewsState = {
+    news: [],
+    filteredNews: [],
+    newsItem: {
+        id: '',
+        title: '',
+        image_url: '',
+        image_additional_url: '',
+        body: '',
+    }
+
 };
 
 const newsSlice = createSlice({

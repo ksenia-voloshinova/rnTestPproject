@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { Image, StyleSheet, Text,  View } from "react-native";
 import HTML from 'react-native-render-html';
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/reducers";
 import Header from "../components/Header";
 import { useNavigation } from "@react-navigation/native";
+import { RootState } from "../types";
 
 export const NewsDetailedScreen: React.FC = () => {
   const navigation = useNavigation();
@@ -12,12 +12,10 @@ export const NewsDetailedScreen: React.FC = () => {
   const news = useSelector((state: RootState) => state.news.newsItem);
 
   useEffect(() => {
+    // @ts-ignore
     navigation.setOptions({
-      headerTitle: () => <Header userData={userData} />,
-      headerBackVisible: false
-
+      headerTitle: () => <Header userData={userData} isFlexUpdated={true}/>,
     });
-
   }, [navigation, userData]);
 
   return (
@@ -55,6 +53,5 @@ const styles = StyleSheet.create({
     content:{
         fontSize:14,
         marginBottom: 5,
-    }
-
+    },
 })

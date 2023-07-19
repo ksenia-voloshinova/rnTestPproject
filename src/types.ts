@@ -1,8 +1,5 @@
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
-export type UserState = {
-    userDetails: StorageData ;
-};
 
 export type GeneralData = {
     data: UserType;
@@ -11,6 +8,7 @@ export type GeneralData = {
 
 export type UserDataTypes = {
     userData: StorageData;
+    isFlexUpdated: boolean
 }
 
 export type UserType = {
@@ -75,3 +73,18 @@ export type AuthScreenNavigationType = NativeStackNavigationProp<RootStackParamL
 export type NewsScreenNavigationType = NativeStackNavigationProp<RootStackParamList, 'NewsScreen'>
 
 export type NewsDetailedScreenNavigationType = NativeStackNavigationProp<RootStackParamList, 'NewsDetailedScreen'>
+
+export type RootState = {
+    news: NewsState;
+    logout: UserState;
+}
+export type NewsState = {
+    news: NewsData[] | [],
+    filteredNews:NewsData[] | [],
+    newsItem: NewsData ;
+}
+export type UserState = {
+    userDetails: StorageData ;
+    isLogin: boolean;
+};
+

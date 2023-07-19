@@ -1,18 +1,21 @@
 import { Button, Image, StyleSheet, Text, View } from "react-native";
 import * as React from "react";
 import { AuthScreenNavigationType, UserDataTypes } from "../types";
-import {useNavigation} from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import LogoutService from "../services/logoutService";
 
-export const Header: React.FC <UserDataTypes> = ({ userData }) => {
-  const navigation = useNavigation<AuthScreenNavigationType>();
+export const Header: React.FC <UserDataTypes> = ({ userData, isFlexUpdated }) => {
+  const route = useRoute();
   const handleLogout = async () => {
     await LogoutService();
-    navigation.navigate('AuthScreen', {});
   };
 
+  const containerStyle = isFlexUpdated
+    ? { ...styles.container, flex: 0.9 }
+    : styles.container;
+
   return (
-  <View style={styles.container}>
+  <View style={containerStyle}>
     <View style={styles.userContainer}>
       <Image
         style={styles.avatar}
@@ -26,11 +29,11 @@ export const Header: React.FC <UserDataTypes> = ({ userData }) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    maxWidth: '97%'
+    flex:1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    maxWidth:"97%"
   },
   userContainer: {
     flexDirection: 'row',
@@ -45,5 +48,6 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 16,
   },
+
 });
 export default Header;
