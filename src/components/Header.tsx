@@ -1,39 +1,35 @@
-import { Button, Image, StyleSheet, Text, View } from "react-native";
-import * as React from "react";
-import { AuthScreenNavigationType, UserDataTypes } from "../types";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import LogoutService from "../services/logoutService";
+import {Button, Image, StyleSheet, Text, View} from 'react-native';
+import * as React from 'react';
+import {UserDataTypes} from '../types';
+import LogoutService from '../services/logoutService';
 
-export const Header: React.FC <UserDataTypes> = ({ userData, isFlexUpdated }) => {
-  const route = useRoute();
+export const Header: React.FC<UserDataTypes> = ({userData, isFlexUpdated}) => {
   const handleLogout = async () => {
     await LogoutService();
   };
 
   const containerStyle = isFlexUpdated
-    ? { ...styles.container, flex: 0.9 }
+    ? {...styles.container, flex: 0.9}
     : styles.container;
 
   return (
-  <View style={containerStyle}>
-    <View style={styles.userContainer}>
-      <Image
-        style={styles.avatar}
-        source={{ uri : userData.avatar  }}
-      />
-      <Text style={styles.username}>{userData.username}</Text>
+    <View style={containerStyle}>
+      <View style={styles.userContainer}>
+        <Image style={styles.avatar} source={{uri: userData.avatar}} />
+        <Text style={styles.username}>{userData.username}</Text>
+      </View>
+      <Button title="Выйти" onPress={handleLogout} />
     </View>
-    <Button title="Выйти" onPress={handleLogout} />
-  </View>
-);}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    maxWidth:"97%"
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    maxWidth: '97%',
   },
   userContainer: {
     flexDirection: 'row',
@@ -48,6 +44,5 @@ const styles = StyleSheet.create({
   username: {
     fontSize: 16,
   },
-
 });
 export default Header;

@@ -1,6 +1,6 @@
-import {  configureStore } from "@reduxjs/toolkit";
-import logoutReducer from "./reducers/logout";
-import newsReducer from "./reducers/news";
+import {configureStore} from '@reduxjs/toolkit';
+import logoutReducer from './reducers/logout';
+import newsReducer from './reducers/news';
 
 export const store = configureStore({
   reducer: {
