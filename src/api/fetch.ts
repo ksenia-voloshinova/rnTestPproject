@@ -17,6 +17,8 @@ export const fetchUserData = async (
 export const fetchPosts = async (): Promise<ApiResponse<unknown, unknown>> => {
   return await api.get('/news', {});
 };
-export const fetchPostId = async (newsid: string): Promise<ApiResponse<unknown, unknown>> => {
+export const fetchPostId = async (
+    newsid: string,
+): Promise<ApiResponse<unknown, unknown>> => {
   return await api.get(`/news/${newsid}`);
 };

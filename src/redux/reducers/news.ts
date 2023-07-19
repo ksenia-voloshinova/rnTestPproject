@@ -10,6 +10,12 @@ const initialState: NewsState = {
     image_url: '',
     image_additional_url: '',
     body: '',
+    short_text: '',
+    created_at: '',
+    category: '',
+    icon: '',
+    model_name: '',
+    table_name: '',
   },
 };
 
